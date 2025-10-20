@@ -13,6 +13,11 @@ variable "region" {
     type = string
 }
 
+variable "project" {
+    description = "デフォルトプロジェクト"
+    type = string
+}
+
 variable "billing_account_id" {
     description = "請求アカウントID"
     type = string
@@ -20,6 +25,16 @@ variable "billing_account_id" {
 
 variable "poc01_shared_project" {
     description = "PoC共有プロジェクトの名称"
+    type = string
+}
+
+variable "sa_poc_service_a_app" {
+    description = "PoCプロジェクト01向けのアプリケーションサービスアカウント"
+    type = string
+}
+
+variable "sa_poc_service_b_app" {
+    description = "PoCプロジェクト02向けのアプリケーションサービスアカウント"
     type = string
 }
 

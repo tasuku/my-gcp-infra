@@ -10,8 +10,8 @@ terraform {
 }
 
 provider "google" {
-    project = "shared-service-accounts-475520"
-    region  = "asia-northeast1"
+    project = var.project
+    region  = var.region
 
     # 「権限借用」の指定
     # gcloud authでログインした個人ユーザの権限で、以下のSAとして振る舞う
@@ -21,12 +21,6 @@ provider "google" {
 resource "random_id" "project_suffix" {
     byte_length = 4
 }
-
-# 基本フォルダ構成：環境共通のルートフォルダ
-#resource "google_folder" "common" {
-#    display_name = "Common"
-#    parent = "organizations/${var.org_id}"
-#}
 
 # 基本フォルダ構成：非商用環境のルートフォルダ
 resource "google_folder" "non_prod" {
