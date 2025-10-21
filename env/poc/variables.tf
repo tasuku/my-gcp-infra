@@ -1,4 +1,4 @@
-variable "terraform-admin" {
+variable "terraform-poc" {
     description = "Terraform用サービスアカウント"
     type = string
 }
@@ -25,6 +25,11 @@ variable "non_prod" {
 
 variable "poc" {
     description = "PoCフォルダ"
+    type = string
+}
+
+variable "folder_poc_id" {
+    description = "検索用のPoCフォルダID"
     type = string
 }
 

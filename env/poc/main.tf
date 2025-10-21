@@ -15,39 +15,21 @@ provider "google" {
 
     # 「権限借用」の指定
     # gcloud authでログインした個人ユーザの権限で、以下のSAとして振る舞う
-    impersonate_service_account = var.terraform-admin
+    impersonate_service_account = var.terraform-poc
 }
 
 resource "random_id" "project_suffix" {
     byte_length = 4
 }
 
-data "google_folders" "all_L2_folders" {
-    parent_id = "organizations/${var.org_id}"
-}
-
-locals {
-    folder_non_prod = one([
-        for f in data.google_folders.all_L2_folders.folders : f
-        if f.display_name == "Non-Prod"
-    ])
-}
-
-data "google_folders" "all_non_prod_folders" {
-    parent_id = local.folder_non_prod.name
-}
-
-locals {
-    folder_poc = one([
-        for f in data.google_folders.all_non_prod_folders.folders : f
-        if f.display_name == "PoC"
-    ])
+data "google_folder" "folder_poc" {
+    folder = var.folder_poc_id
 }
 
 # PoC共有プロジェクトフォルダ
 resource "google_folder" "shared" {
     display_name = var.folder_shared_project
-    parent = local.folder_poc.name
+    parent = data.google_folder.folder_poc.id
 
 }
 
@@ -70,7 +52,7 @@ resource "google_project" "shared_pj" {
 # PoC個別プロジェクトその1
 resource "google_folder" "service_a" {
     display_name = var.folder_service_a_project
-    parent = local.folder_poc.name
+    parent = data.google_folder.folder_poc.id
 
 }
 
@@ -106,7 +88,7 @@ resource "google_project" "service_a_02_pj" {
 # PoC個別プロジェクトその2
 resource "google_folder" "service_b" {
     display_name = var.folder_service_b_project
-    parent = local.folder_poc.name
+    parent = data.google_folder.folder_poc.id
 
 }
 
