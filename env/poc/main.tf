@@ -45,149 +45,149 @@ locals {
 }
 
 # PoC共有プロジェクトフォルダ
-resource "google_folder" "poc_shared" {
+resource "google_folder" "shared" {
     display_name = "poc-shared"
     parent = local.folder_poc.name
 
 }
 
 # PoC共有プロジェクト
-resource "google_project" "poc01_shared_pj" {
-    name = var.poc01_shared_project
-    project_id = "${var.poc01_shared_project}-${random_id.project_suffix.hex}"
-    folder_id = google_folder.poc_shared.folder_id
+resource "google_project" "shared_pj" {
+    name = var.shared_project
+    project_id = "${var.shared_project}-${random_id.project_suffix.hex}"
+    folder_id = google_folder.shared.folder_id
     billing_account = var.billing_account_id
     auto_create_network = false
 
     deletion_policy = "DELETE"
 
     depends_on = [
-        google_folder.poc_shared
+        google_folder.shared
     ]
 
 }
 
 # PoC個別プロジェクトその1
-resource "google_folder" "poc_service_a" {
+resource "google_folder" "service_a" {
     display_name = "poc-service-a-pj"
     parent = local.folder_poc.name
 
 }
 
-resource "google_project" "poc01_service_a_pj" {
-    name = var.poc01_service_a_project
-    project_id = "${var.poc01_service_a_project}-${random_id.project_suffix.hex}"
-    folder_id = google_folder.poc_service_a.folder_id
+resource "google_project" "service_a_01_pj" {
+    name = var.service_a_01_project
+    project_id = "${var.service_a_01_project}-${random_id.project_suffix.hex}"
+    folder_id = google_folder.service_a.folder_id
     billing_account = var.billing_account_id
     auto_create_network = false
 
     deletion_policy = "DELETE"
 
     depends_on = [
-        google_folder.poc_service_a
+        google_folder.service_a
     ]
 
 }
 
-resource "google_project" "poc02_service_a_pj" {
-    name = var.poc02_service_a_project
-    project_id = "${var.poc02_service_a_project}-${random_id.project_suffix.hex}"
-    folder_id = google_folder.poc_service_a.folder_id
+resource "google_project" "service_a_02_pj" {
+    name = var.service_a_02_project
+    project_id = "${var.service_a_02_project}-${random_id.project_suffix.hex}"
+    folder_id = google_folder.service_a.folder_id
     billing_account = var.billing_account_id
     auto_create_network = false
 
     deletion_policy = "DELETE"
 
     depends_on = [
-        google_folder.poc_service_a
+        google_folder.service_a
     ]
 }
 
 # PoC個別プロジェクトその2
-resource "google_folder" "poc_service_b" {
+resource "google_folder" "service_b" {
     display_name = "poc-service-b-pj"
     parent = local.folder_poc.name
 
 }
 
-resource "google_project" "poc01_service_b_pj" {
-    name = var.poc01_service_b_project
-    project_id = "${var.poc01_service_b_project}-${random_id.project_suffix.hex}"
-    folder_id = google_folder.poc_service_b.folder_id
+resource "google_project" "service_b_01_pj" {
+    name = var.service_b_01_project
+    project_id = "${var.service_b_01_project}-${random_id.project_suffix.hex}"
+    folder_id = google_folder.service_b.folder_id
     billing_account = var.billing_account_id
     auto_create_network = false
 
     deletion_policy = "DELETE"
 
     depends_on = [
-        google_folder.poc_service_b
+        google_folder.service_b
     ]
 }
 
-resource "google_billing_project_info" "poc01_shared_pj_billing" {
-    project = google_project.poc01_shared_pj.project_id
+resource "google_billing_project_info" "shared_pj_billing" {
+    project = google_project.shared_pj.project_id
     billing_account = var.billing_account_id
 }
 
-resource "google_billing_project_info" "poc01_service_a_pj_billing" {
-    project = google_project.poc01_service_a_pj.project_id
+resource "google_billing_project_info" "service_a_01_pj_billing" {
+    project = google_project.service_a_01_pj.project_id
     billing_account = var.billing_account_id
 }
 
-resource "google_billing_project_info" "poc02_service_a_pj_billing" {
-    project = google_project.poc02_service_a_pj.project_id
+resource "google_billing_project_info" "service_a_02_pj_billing" {
+    project = google_project.service_a_02_pj.project_id
     billing_account = var.billing_account_id
 }
 
-resource "google_billing_project_info" "poc01_service_b_pj_billing" {
-    project = google_project.poc01_service_b_pj.project_id
+resource "google_billing_project_info" "service_b_01_pj_billing" {
+    project = google_project.service_b_01_pj.project_id
     billing_account = var.billing_account_id
 }
 
-resource "google_project_service" "poc01_shared_pj_compute_api" {
-    project = google_project.poc01_shared_pj.project_id
+resource "google_project_service" "shared_pj_compute_api" {
+    project = google_project.shared_pj.project_id
     service = "compute.googleapis.com"
 
-    depends_on = [google_billing_project_info.poc01_shared_pj_billing]
+    depends_on = [google_billing_project_info.shared_pj_billing]
 }
 
-resource "google_project_service" "poc01_service_a_pj_compute_api" {
-    project = google_project.poc01_service_a_pj.project_id
+resource "google_project_service" "service_a_01_pj_compute_api" {
+    project = google_project.service_a_01_pj.project_id
     service = "compute.googleapis.com"
 
-    depends_on = [google_billing_project_info.poc01_shared_pj_billing]
+    depends_on = [google_billing_project_info.shared_pj_billing]
 }
 
-resource "google_project_service" "poc01_service_b_pj_compute_api" {
-    project = google_project.poc01_service_b_pj.project_id
+resource "google_project_service" "service_b_01_pj_compute_api" {
+    project = google_project.service_b_01_pj.project_id
     service = "compute.googleapis.com"
 
-    depends_on = [google_billing_project_info.poc01_shared_pj_billing]
+    depends_on = [google_billing_project_info.shared_pj_billing]
 }
 
 
-resource "google_compute_shared_vpc_host_project" "poc01_host" {
-    project = google_project.poc01_shared_pj.project_id
+resource "google_compute_shared_vpc_host_project" "host" {
+    project = google_project.shared_pj.project_id
 
-    depends_on = [google_project_service.poc01_shared_pj_compute_api]
+    depends_on = [google_project_service.shared_pj_compute_api]
 }
 
-resource "google_compute_shared_vpc_service_project" "poc01_service_a_pj_service" {
-    host_project = google_compute_shared_vpc_host_project.poc01_host.project
-    service_project = google_project.poc01_service_a_pj.project_id
+resource "google_compute_shared_vpc_service_project" "service_a_01_pj_service" {
+    host_project = google_compute_shared_vpc_host_project.host.project
+    service_project = google_project.service_a_01_pj.project_id
 
     depends_on = [
-        google_compute_shared_vpc_host_project.poc01_host,
-        google_project_service.poc01_service_a_pj_compute_api
+        google_compute_shared_vpc_host_project.host,
+        google_project_service.service_a_01_pj_compute_api
     ]
 }
 
-resource "google_compute_shared_vpc_service_project" "poc01_service_b_pj_service" {
-    host_project = google_compute_shared_vpc_host_project.poc01_host.project
-    service_project = google_project.poc01_service_b_pj.project_id
+resource "google_compute_shared_vpc_service_project" "service_b_01_pj_service" {
+    host_project = google_compute_shared_vpc_host_project.host.project
+    service_project = google_project.service_b_01_pj.project_id
 
     depends_on = [
-        google_compute_shared_vpc_host_project.poc01_host,
-        google_project_service.poc01_service_b_pj_compute_api
+        google_compute_shared_vpc_host_project.host,
+        google_project_service.service_b_01_pj_compute_api
     ]
 }

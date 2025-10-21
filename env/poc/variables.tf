@@ -33,32 +33,32 @@ variable "billing_account_id" {
     type = string
 }
 
-variable "poc01_shared_project" {
+variable "shared_project" {
     description = "PoC共有プロジェクトの名称"
     type = string
 }
 
-variable "sa_poc_service_a_app" {
-    description = "PoCプロジェクト01向けのアプリケーションサービスアカウント"
+variable "sa_service_a_app" {
+    description = "サービスA向けのアプリケーションサービスアカウント"
     type = string
 }
 
-variable "sa_poc_service_b_app" {
-    description = "PoCプロジェクト02向けのアプリケーションサービスアカウント"
+variable "sa_service_b_app" {
+    description = "サービスB向けのアプリケーションサービスアカウント"
     type = string
 }
 
-variable "poc01_service_a_project" {
-    description = "PoCプロジェクト01[環境面poc01]の名称"
+variable "service_a_01_project" {
+    description = "サービスAプロジェクト[環境面01]の名称"
     type = string
 }
 
-variable "poc02_service_a_project" {
-    description = "PoCプロジェクト01[環境面poc02]の名称"
+variable "service_a_02_project" {
+    description = "サービスAプロジェクト[環境面02]の名称"
     type = string
 }
 
-variable "poc01_service_b_project" {
-    description = "PoCプロジェクト02[環境面poc01]の名称"
+variable "service_b_01_project" {
+    description = "サービスBプロジェクト[環境面01]の名称"
     type = string
 }
