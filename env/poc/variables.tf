@@ -33,6 +33,11 @@ variable "billing_account_id" {
     type = string
 }
 
+variable "folder_shared_project" {
+    description = "PoC共有プロジェクトフォルダの名称"
+    type = string
+}
+
 variable "shared_project" {
     description = "PoC共有プロジェクトの名称"
     type = string
@@ -48,6 +53,11 @@ variable "sa_service_b_app" {
     type = string
 }
 
+variable "folder_service_a_project" {
+    description = "サービスAプロジェクトフォルダの名称"
+    type = string
+}
+
 variable "service_a_01_project" {
     description = "サービスAプロジェクト[環境面01]の名称"
     type = string
@@ -55,6 +65,11 @@ variable "service_a_01_project" {
 
 variable "service_a_02_project" {
     description = "サービスAプロジェクト[環境面02]の名称"
+    type = string
+}
+
+variable "folder_service_b_project" {
+    description = "サービスBプロジェクトフォルダの名称"
     type = string
 }
 

@@ -46,7 +46,7 @@ locals {
 
 # PoC共有プロジェクトフォルダ
 resource "google_folder" "shared" {
-    display_name = "poc-shared"
+    display_name = var.folder_shared_project
     parent = local.folder_poc.name
 
 }
@@ -69,7 +69,7 @@ resource "google_project" "shared_pj" {
 
 # PoC個別プロジェクトその1
 resource "google_folder" "service_a" {
-    display_name = "poc-service-a-pj"
+    display_name = var.folder_service_a_project
     parent = local.folder_poc.name
 
 }
@@ -105,7 +105,7 @@ resource "google_project" "service_a_02_pj" {
 
 # PoC個別プロジェクトその2
 resource "google_folder" "service_b" {
-    display_name = "poc-service-b-pj"
+    display_name = var.folder_service_b_project
     parent = local.folder_poc.name
 
 }
